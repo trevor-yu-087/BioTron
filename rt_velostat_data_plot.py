@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-import serial
 import numpy as np
 
 #create figure and data structure for plotting
@@ -14,21 +13,18 @@ def updateGraph(i):
     if len(lines) > 3000:
         with open("sensor_data.txt", "w") as file:
             file.write('\n'.join(lines[len(lines) - 750:]) + '\n')
-    sensor_data = []
-    for line in lines:
-        if len(line) > 1:
-            data_point = line.split(',')
-            sensor_data.append(data_point)
-    ax.clear()
-    if(len(sensor_data) > 500):
-        sensor_data = sensor_data[-750:]
+
+    # get data
+    if len(lines) > 1:
+        if len(lines[-1]) > 1:
+            data_point = lines[-1].split(',')
 
     # plot data
-    inds = range(12)
+    ax.clear()
+    inds = np.linspace(0,11,num=12)
     xs = np.floor(inds / 6)
     ys = (11 - inds) % 6
     colors = data_point / 255
-    cmap = plt.cm.get_cmap('inferno')
     ax.scatter(xs, ys, c=colors, cmap=plt.cm.get_cmap('inferno'))
 
     # format plot
