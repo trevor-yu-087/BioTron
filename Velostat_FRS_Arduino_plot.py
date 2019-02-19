@@ -1,13 +1,10 @@
 import serial
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
 
-ser = serial.Serial('COM4', 9600)
+ser = serial.Serial('COM4', 9600, timeout=1)
 pressures = []
 number = ''
 time = 0
-while True:
+while ser.is_open:
     file = open('\sensor_data.csv', 'a')
     data = ''
     while data != b'\n':
