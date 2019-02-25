@@ -16,15 +16,17 @@ def updateGraph(i):
 
     # get data
     if len(lines) > 1:
-        if len(lines[-1]) > 1:
-            data_point = lines[-1].split(',')
+        if len(lines[-2]) > 1:
+            data_point = lines[-2].split(',')
+            data_point = np.asarray(list(map(int, data_point)))
+            #print(data_point)
 
     # plot data
     ax.clear()
     inds = np.linspace(0,11,num=12)
     xs = np.floor(inds / 6)
     ys = (11 - inds) % 6
-    colors = inds / 255.
+    colors = data_point / 255.
     im = ax.scatter(xs, ys, c=colors, cmap=plt.cm.get_cmap('inferno'), marker='s',s=1000, edgecolors='w')
     # legend = plt.legend()
 
@@ -37,7 +39,6 @@ def updateGraph(i):
     # fig.colorbar(legend, ax=ax)
 
 
-
-ani = animation.FuncAnimation(fig, updateGraph, interval=100)
+ani = animation.FuncAnimation(fig, updateGraph, interval=10)
 ax.set_facecolor('k')
 plt.show()
