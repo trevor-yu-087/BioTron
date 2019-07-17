@@ -47,17 +47,17 @@ void checkButton() {
 
 void Actuate(bool state) {
  if(state == false) {
-   analogWrite(actPin, 250);
+   analogWrite(actPin, 170);
  }
  else{
-   analogWrite(actPin, 20); // realistically around 20 cause 0 stalls
+   analogWrite(actPin, 40); // realistically around 20 cause 0 stalls
  }
 }
 
 bool debounce(bool last) {
   boolean current = digitalRead(buttonPin);
   if(last != current){
-    delay(5);
+    delay(10);
     current = digitalRead(buttonPin);
   }
   return current;
